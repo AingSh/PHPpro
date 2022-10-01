@@ -23,8 +23,9 @@
                 <td>{{$category->created_at}}</td>
                 <td>{{$category->updated_at}}</td>
                 <td>
-                    <a href="/category/update.php?id={{$category->id}}" class="btn btn-primary">Обновить</a>
-                    <a href="/category/delete.php?id={{$category->id}}" class="btn btn-danger">Удалить</a>
+                    <a href="/category/{{$category->id}}/edit" class="btn btn-primary">Обновить</a>
+                    <a href="/category/{{$category->id}}/delete" class="btn btn-danger">Удалить</a>
+                    <a href="/category/{{$category->id}}/show" class="btn btn-info">Показать</a>
                 </td>
             </tr>
         @empty
@@ -32,7 +33,7 @@
         @endforelse
         </tbody>
     </table>
-    <a href="/category/create.php" class="btn btn-success">Создать категорию новую</a>
+    <a href="/category/create" class="btn btn-success">Создать категорию новую</a>
 @endsection
 
 
