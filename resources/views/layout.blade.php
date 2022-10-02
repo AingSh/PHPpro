@@ -17,6 +17,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/tag">Tag</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/post">Post</a>
+                </li>
             </ul>
         </div>
     </div>

@@ -4,6 +4,15 @@
 
 @section('content')
 
+    @isset($_SESSION['success'])
+        <div class="alert alert-success" role="alert">
+            {{$_SESSION['success']}}
+        </div>
+    @endisset
+    @php
+        unset($_SESSION['success']);
+
+    @endphp
     <table class="table">
         <thead>
         <tr>
@@ -22,7 +31,8 @@
                 <td>{{$tag->slug}}</td>
                 <td>
                     <a href="/tag/{{$tag->id}}/edit" class="btn btn-primary">Обновить</a>
-                    <a href="/tag/{{$tag->id}}/delete" class="btn btn-danger">Удалить</a>
+                    <a href="/tag/{{$tag->id}}/delete" class="btn btn-danger">В корзину</a>
+                    <a href="/tag/{{$tag->id}}/force-delete" class="btn btn-danger">Удалить на всегда</a>
                     <a href="/tag/{{$tag->id}}/show" class="btn btn-info">Показать</a>
                 </td>
             </tr>
@@ -32,6 +42,7 @@
         </tbody>
     </table>
     <a href="/tag/create" class="btn btn-success">Добавить тег</a>
+    <a href="/tag/trash" class="btn btn-info">Корзина</a>
 @endsection
 
 

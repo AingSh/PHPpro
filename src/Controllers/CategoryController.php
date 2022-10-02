@@ -27,12 +27,26 @@ class CategoryController
 
     public function store()
     {
-        $request = request();
+        $data = request()->all();
+        $validator = validator()->make($data, [
+            'title' => ['required',
+                'min:3',
+                'unique:categories,title'],
+            'slug' => ['required']
+        ]);
+
+        if ($validator->fails()) {
+            $_SESSION['errors'] = $validator->errors()->toArray();
+            $_SESSION['data'] = $data;
+            return new RedirectResponse($_SERVER['HTTP_REFERER']);
+        }
 
         $category = new Category();
-        $category->title = $request->input('title');
-        $category->slug = $request->input('slug');
+        $category->title = $data['title'];
+        $category->slug = $data['slug'];
         $category->save();
+
+        $_SESSION['success'] = 'Запис успішно додано!';
         return new  RedirectResponse('/category');
 
     }
