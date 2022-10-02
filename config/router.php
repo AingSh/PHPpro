@@ -4,7 +4,7 @@ use Illuminate\Events\Dispatcher;
 use Illuminate\Container\Container;
 use Illuminate\Routing\Router;
 use Illuminate\Http\Request;
-use Hillel\Controllers\PageController;
+use Hillel\Controllers\PostController;
 use Hillel\Controllers\CategoryController;
 use Hillel\Controllers\TagController;
 
@@ -52,4 +52,15 @@ $router->get('/tag/{id}/edit', [TagController::class, 'edit']);
 $router->post('/tag/update', [TagController::class, 'update']);
 $router->get('/tag/{id}/delete', [TagController::class, 'destroy']);
 $router->get('/tag/{id}/show', [TagController::class, 'show']);
+
+//Post
+
+
+$router->get('/post', [PostController::class, 'index']);
+$router->get('/post/create', [PostController::class, 'create']);
+$router->post('/post/store', [PostController::class, 'store']);
+$router->get('/post/{id}/edit', [PostController::class, 'edit']);
+$router->post('/post/update', [PostController::class, 'update']);
+$router->get('/post/{id}/delete', [PostController::class, 'destroy']);
+$router->get('/post/{id}/show', [PostController::class, 'show']);
 
