@@ -16,6 +16,8 @@
         "illuminate/events": "^9.32",
         "guzzlehttp/guzzle": "^7.0",
         "illuminate/view": "^9.32",
-        "illuminate/routing": "^9.33"
+        "illuminate/routing": "^9.33",
+        "illuminate/validation": "^9.33",
+        "vlucas/phpdotenv": "^5.4"
     }
 }

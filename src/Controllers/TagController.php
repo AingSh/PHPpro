@@ -4,6 +4,7 @@ namespace Hillel\Controllers;
 
 use Hillel\Models\Tag;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Validation\Rule;
 
 class TagController
 {
@@ -27,12 +28,30 @@ class TagController
 
     public function store()
     {
-        $request = request();
+        $data = request()->all();
+
+        $validator = validator()->make($data, [
+            'title' => ['required',
+                'min:2',
+                'max:30',
+                'unique:tags,title'],
+            'slug' => ['required', 'min:2', 'max:30']
+        ]);
+
+        if ($validator->fails()) {
+            $_SESSION['errors'] = $validator->errors()->toArray();
+            $_SESSION['data'] = $data;
+            return new RedirectResponse($_SERVER['HTTP_REFERER']);
+        }
 
         $tag = new Tag();
-        $tag->title = $request->input('title');
-        $tag->slug = $request->input('slug');
+        $tag->title = $data['title'];
+        $tag->slug = $data['slug'];
         $tag->save();
+
+
+
+        $_SESSION['success'] = 'Запис успішно додано!';
         return new  RedirectResponse('/tag');
 
     }
@@ -45,12 +64,31 @@ class TagController
 
     public function update()
     {
-        $request = request();
 
-        $tag = Tag::find($request->input('id'));
-        $tag->title = $request->input('title');
-        $tag->slug = $request->input('slug');
+        $data = request()->all();
+
+        $tag = Tag::find($data['id']);
+        $tag->title = $data['title'];
+        $tag->slug = $data['slug'];
+
+        $validator = validator()->make($data, [
+            'title' => ['required',
+                'min:2',
+                'max:30',
+                Rule::unique('tags', 'title')->ignore($tag->id)],
+                'slug' => ['required', 'min:2', 'max:30']
+            ]);
+
+        if ($validator->fails()) {
+            $_SESSION['errors'] = $validator->errors()->toArray();
+            $_SESSION['data'] = $data;
+            return new RedirectResponse($_SERVER['HTTP_REFERER']);
+        }
+
         $tag->save();
+
+
+        $_SESSION['success'] =  'Запис успішно змінено!!';
         return new  RedirectResponse('/tag');
     }
 
