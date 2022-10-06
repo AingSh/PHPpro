@@ -11,6 +11,3 @@ $dotenv = Dotenv\Dotenv::create($repository, __DIR__ . '/../');
 $dotenv->load();
 $dotenv->required('DATABASE_DB')->notEmpty();
 
-//echo '<pre>';
-//print_r(getenv('DATABASE_PASSWORD'));
-//echo '<pre>';
